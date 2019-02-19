@@ -130,13 +130,18 @@ public class ReactGeetestSensebotModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void stopCaptcha(Promise promise) {
-        if (gt3GeetestUtils != null) {
+        if (mReactContext != null) {
             mReactContext.runOnUiQueueThread(new Runnable() {
                 @Override
                 public void run() {
-                    gt3GeetestUtils.cancelUtils();
-                    gt3GeetestUtils.gt3TestClose();
-                    gt3GeetestUtils = null;
+                    try {
+                        if (gt3GeetestUtils != null) {
+                            gt3GeetestUtils.cancelUtils();
+                            gt3GeetestUtils.gt3TestClose();
+                            gt3GeetestUtils = null;
+                        }
+                    } catch (Exception e) {
+                    }
                 }
             });
         }
