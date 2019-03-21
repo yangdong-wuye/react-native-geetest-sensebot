@@ -30,7 +30,7 @@ public class ReactGeetestSensebotModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initCaptchaMgr(Integer maskColor, Boolean isDebug, Promise promise) {
-        gt3GeetestUtils = new GT3GeetestUtilsBind(mReactContext.getCurrentActivity());
+        gt3GeetestUtils = new GT3GeetestUtilsBind(mReactContext);
         gt3GeetestUtils.setTimeout(5000);
         gt3GeetestUtils.getISonto();
         gt3GeetestUtils.setDialogTouch(true);
@@ -59,7 +59,7 @@ public class ReactGeetestSensebotModule extends ReactContextBaseJavaModule {
         mReactContext.runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
-                gt3GeetestUtils.getGeetest(mReactContext.getCurrentActivity(), urlPlaceHolder, urlPlaceHolder, null, new GT3GeetestBindListener() {
+                gt3GeetestUtils.getGeetest(mReactContext, urlPlaceHolder, urlPlaceHolder, null, new GT3GeetestBindListener() {
                     // 行为验证结果
                     @Override
                     public void gt3GetDialogResult(boolean status, String resultString) {
@@ -90,7 +90,9 @@ public class ReactGeetestSensebotModule extends ReactContextBaseJavaModule {
 
                             sendEvent(eventBody);
 
-                            gt3GeetestUtils.gt3TestFinish();
+                            if (gt3GeetestUtils != null) {
+                                gt3GeetestUtils.gt3TestFinish();
+                            }
                         }
                     }
 
@@ -130,16 +132,16 @@ public class ReactGeetestSensebotModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void stopCaptcha(Promise promise) {
-        if (gt3GeetestUtils != null) {
-            mReactContext.runOnUiQueueThread(new Runnable() {
-                @Override
-                public void run() {
+        mReactContext.runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+                if (gt3GeetestUtils != null) {
                     gt3GeetestUtils.cancelUtils();
                     gt3GeetestUtils.gt3TestClose();
                     gt3GeetestUtils = null;
                 }
-            });
-        }
+            }
+        });
 
         promise.resolve(true);
     }
