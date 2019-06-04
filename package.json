@@ -17,11 +17,6 @@
   "scripts": {
     "postinstall": "node scripts/postinstall"
   },
-  "rnpm": {
-    "commands": {
-      "postlink": "node node_modules/@yyyyu/react-native-geetest-sensebot/scripts/postlink"
-    }
-  },
   "dependencies": {
     "invariant": "^2.2.4"
   },
