@@ -18,4 +18,5 @@ Pod::Spec.new do |s|
   s.vendored_frameworks = 'ios/SDK/GT3Captcha.framework'
   s.resource            = 'ios/SDK/GT3Captcha.bundle'
   s.framework           = 'JavaScriptCore', 'WebKit'
+  s.dependency 'React'
 end
